@@ -6,12 +6,12 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes,force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from authentication.tokens import generate_token
 from gfg import settings
-
 
 # Create your views here.
 def home(request):
@@ -51,11 +51,12 @@ def signup(request):
         myuser.first_name = fname
         myuser.last_name = lname
         myuser.is_active=False      #We first deactivate the account then after user click the link it will get activated
-        myuser.save()
+        # myuser.save()
 
         messages.success(request,
-                         "Your account has been created. We have sent you a confirmation email. Please confirm your "
-                         "email in order to activate your account")
+                         '''Your account has been created. We have sent you a confirmation email. Please confirm your 
+                         email in order to activate your account''')
+
 
         # Welcome Email
         subject = " Welcome to My own Django-Login Website"
@@ -71,7 +72,7 @@ def signup(request):
             'name':myuser.first_name,
             'domain':current_site.domain,
             'uid':urlsafe_base64_encode(force_bytes(myuser.pk)),
-            'token':generate_token.make_token(myuser)
+            'token': generate_token.make_token(myuser)
         })
         from django.core.mail import EmailMessage
         email=EmailMessage(
@@ -82,9 +83,13 @@ def signup(request):
         )
         email.fail_silently=True
         email.send()
-        return redirect("signin")
+
+        return render(request, "linkactivate.html")
 
     return render(request, "signup.html")
+
+def linkactivate(request):
+    return render(request,"linkactivate.html")
 
 
 def signin(request):

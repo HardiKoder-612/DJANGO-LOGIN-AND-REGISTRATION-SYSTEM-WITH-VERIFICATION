@@ -3,26 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Authentication</title>
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+    
 </head>
 <body>
-
-    {% for message in messages %}
+{% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
         <strong>Message:</strong> {{message}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span></button>
     </div>
     {% endfor %}
-    <h3>Welcome to our Site</h3>
-
-    {% if user.is_authenticated%}
-    <h3>Hello {{fname}}</h3>
-    <h4>You've successfully logged in.</h4>
-    <button type="submit"><a href="/signout">SignOut</a></button>
-    {% else %}
-    <button type="submit" ><a href="/signup"> SignUp</a></button>
-    <button type="submit"><a href="/signin">SignIn</a></button>
     
-    {% endif %}
+    <div class="container">
+    <div class="navbar">
+        {% load static %}
+        <img src="{% static 'chittox.png' %}" id="logo">
+         {% if user.is_authenticated%}
+        <button type="submit"><a href="/signout" style="color:rgb(177, 70, 31)">SignOut</a></button>
+        <div class="content">
+        <h3>Hello {{user.fname}}</h3>
+        <h4>You've successfully logged in.</h4>
+        <button type="submit"><a href="" style="color:rgb(29, 17, 66)">Just use it</a></button>
+        </div>
+         {% else %}
+            {% load static %}
+        <button type="submit" ><a href="/signup" style="color:rgb(177, 70, 31)"><img src="{% static 'sign-up.png' %}" width="30px" height="30px"/></a></button>
+      {% load static %}
+       <button type="submit"><a href="/signin" style="color:rgb(177, 70, 31)"><img src="{% static 'log-in.png' %}" width="30px" height="30px"/></a></button>
+    </div>
+    <div class="content">
+        <small>welcome to our</small>
+        <h1>Postman Website</h1>
+        
+        </div>
+     
+    </div>
+      {% endif %}
+    <div class="bubble">
+            {% load static %}
+        <img src="{% static 'bubble.png' %}">
+        {% load static %}
+        <img src="{% static 'bubble.png' %}">
+            {% load static %}
+        <img src="{% static 'bubble.png' %}">
+            {% load static %}
+        <img src="{% static 'bubble.png' %}">
+            {% load static %}
+        <img src="{% static 'bubble.png' %}">
+            {% load static %}
+        <img src="{% static 'bubble.png' %}">
+    </div>
+    </div>
 </body>
 </html>
