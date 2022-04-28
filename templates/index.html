@@ -18,16 +18,6 @@
     
     <div class="container">
     <div class="navbar">
-        {% load static %}
-        <img src="{% static 'chittox.png' %}" id="logo">
-         {% if user.is_authenticated%}
-        <button type="submit"><a href="/signout" style="color:rgb(177, 70, 31)">SignOut</a></button>
-        <div class="content">
-        <h3>Hello {{user.fname}}</h3>
-        <h4>You've successfully logged in.</h4>
-        <button type="submit"><a href="" style="color:rgb(29, 17, 66)">Just use it</a></button>
-        </div>
-         {% else %}
             {% load static %}
         <button type="submit" ><a href="/signup" style="color:rgb(177, 70, 31)"><img src="{% static 'sign-up.png' %}" width="30px" height="30px"/></a></button>
       {% load static %}
@@ -36,11 +26,8 @@
     <div class="content">
         <small>welcome to our</small>
         <h1>Postman Website</h1>
-        
         </div>
-     
     </div>
-      {% endif %}
     <div class="bubble">
             {% load static %}
         <img src="{% static 'bubble.png' %}">

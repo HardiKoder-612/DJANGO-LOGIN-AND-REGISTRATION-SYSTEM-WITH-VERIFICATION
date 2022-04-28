@@ -29,19 +29,19 @@ def signup(request):
 
         if User.objects.filter(username=username):
             messages.error(request, "Username Already Exists!!! Please Try some Other Username")
-            return redirect('home')
+            return redirect('signup')
 
         if User.objects.filter(email=email):
             messages.error(request, "E-Mail Already Exists!!! Please Try some Other Email")
-            return redirect('home')
+            return redirect('signup')
 
         if len(username) > 10:
             messages.error(request, "Username must be under 10 Characters!!!")
-            return redirect('home')
+            return redirect('signup')
 
         if password != cpassword:
             messages.error(request, "Passwords didn't match!!!")
-            return redirect('home')
+            return redirect('signup')
 
         # if not username.isalpha():
         #     messages.error(request, "Username must be Alpha-Numberic")
@@ -51,7 +51,7 @@ def signup(request):
         myuser.first_name = fname
         myuser.last_name = lname
         myuser.is_active=False      #We first deactivate the account then after user click the link it will get activated
-        # myuser.save()
+        myuser.save()
 
         messages.success(request,
                          '''Your account has been created. We have sent you a confirmation email. Please confirm your 
@@ -59,8 +59,8 @@ def signup(request):
 
 
         # Welcome Email
-        subject = " Welcome to My own Django-Login Website"
-        message = "Hello " + myuser.first_name+"!! \n"+"Welcome to Site!!\nThank you for visiting the website.\n We have sent you a confirmation e-mail.\nPlease confirm your E-mail address to start your account.\n\nThank You. "
+        subject = " Welcome to our own Dlog.in Website"
+        message = "Hello " + myuser.first_name+"!! \n"+"Welcome to Site!!\nThank you for visiting the website and registering yourself on it.\n We have sent you a confirmation e-mail.\nPlease confirm your E-mail address to start your account.\n\nThank You. "
         from_email = settings.EMAIL_HOST_USER
         to_list = [myuser.email]  # To whom the email is to be sent
         send_mail(subject, message, from_email, to_list, fail_silently=True)
@@ -83,8 +83,8 @@ def signup(request):
         )
         email.fail_silently=True
         email.send()
-
-        return render(request, "linkactivate.html")
+        # pass a whole dictionary
+        return render(request, "linkactivate.html",{'fname': fname})
 
     return render(request, "signup.html")
 
@@ -102,7 +102,7 @@ def signin(request):
             print(username, password)
             login(request, myuser)
             fname = myuser.first_name
-            return render(request, "index.html", {'fname': fname})
+            return render(request, "signedin.html", {'fname': fname})
 
         else:
             messages.error(request, "Wrong Credentials")
@@ -110,6 +110,8 @@ def signin(request):
 
     return render(request, "signin.html")
 
+def signedin(request):
+    return render(request,"signedin.html")
 
 def signout(request):
     logout(request)
@@ -124,10 +126,13 @@ def activate(request,uidb64,token):
         myuser=None
 
     if myuser is not None and generate_token.check_token(myuser,token):
+        username=myuser.username
+        password=myuser.password
         myuser.is_active=True
+        fname=myuser.first_name
         myuser.save()
         login(request,myuser)
-        return redirect("home")
+        return render(request, "signedin.html", {'fname': fname})
     else:
         return render(request,'activation_failed.html')
 
