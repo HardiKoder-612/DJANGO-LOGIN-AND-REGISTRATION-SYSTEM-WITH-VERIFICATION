@@ -1,292 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'basic.html' %}
+{% load socialaccount %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Sign In</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+{% block title%}Sign In{% endblock%}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% block link %}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:wght@300;400&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- Change was made here -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <script src="bootstrap/scripts/jquery.min.js"></script>
+      <script src="/bootstrap/js/bootstrap.min.js"></script>
+<!--{% load static %}-->
+<!--<link rel="stylesheet" type="text/css" href="{% static 'FOOTER.css' %}">-->
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'Dlog_Signin.css' %}">
+{%endblock%}
 
-        body,
-        input {
-            font-family: 'Poppins', sans-serif;
-            /* background-image: url("https://images.unsplash.com/photo-1648873195151-1f1088628f84?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=1000&q=60"); */
-        }
+{% block body %}
+<div class="container">
+    <!-- First half starts -->
+        <!-- Change was made here -->
+        <script>
+        {% for message in messages %}
+            alert("{{message}}");
+        {% endfor %}
+        </script>
 
-        .container {
-            position: relative;
-            width: 100%;
-            /* background-color: beige; */
-            min-height: 100vh;
-            overflow: hidden;
-        }
 
-        .forms-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+    <div class="div1">
+        <div id="logo">
+            <a href="/">
+                {% load static %}
+        <img src="{% static 'lotus.webp' %}" alt="Dlog.in logo"> 
+            </a>
+        </div>
+        <!-- Form starts -->
+        <div class="div-form">
+            <form action="/signin" method="post" class="sign-in-form">
+                {% csrf_token %}
+                <p>Please login to your account</p>
 
-        }
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control"
+                        placeholder="Enter your Username" required>
+                </div>
 
-        .container::before {
-            content: "";
-            position: absolute;
-            height: 2000px;
-            width: 2000px;
-            top: -10%;
-            right: 50%;
-            background-image: linear-gradient(-45deg, rgb(247, 66, 0), rgb(194, 61, 13) 100%);
-            transform: translateY(-50%);
-            border-radius: 50%;
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                        placeholder="Enter your Password" required>
+                </div>
+                    <br>
+                <div class="login">
+                    <button class="log-in-btn gradient-custom-2" type="submit">Log in</button>
+                    <a href="{% url 'reset_password' %}" id="fp">Forgot password?</a>
+                </div>
+                <div class="create-account">
+                        <p>Don't have an account?</p>
+                        <button type="submit" class="btn1"><a href="/signup">Create new</a></button>
+                        <p id="create-p-space">---Or---</p>
+                    {%load static%}
+                        <button type="submit" class="btn2"><a href="{%provider_login_url 'google' %}">Signup with <img src="{% static 'google.png' %}"> </img> </a></button>
+                </div>
 
-        }
+            </form>
+            <!-- Form ends here -->
+        </div>
 
-        form {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            grid-column: 1/2;
-            grid-row: 1/2;
-        }
-
-        .title {
-            font: size 2.2rem;
-            color: brown;
-            margin-bottom: 15px;
-        }
-
-        .input-field {
-            max-width: 380px;
-            width: 100%;
-            height: 55px;
-            background-color: #f0f0f0;
-            margin: 10px 0;
-            border-radius: 55px;
-            display: grid;
-            grid-template-columns: 15% 85%;
-            padding: 0 0.4rem;
-            position: relative;
-        }
-
-        #username {
-            height: 50px;
-            width: 250px;
-            border-radius: 50px;
-            place-content: center;
-        }
-
-        #password {
-            height: 50px;
-            width: 250px;
-            border-radius: 50px;
-        }
-
-        .input-field i {
-            text-align: center;
-            line-height: 55px;
-            color: gray;
-            font-size: 1.5rem;
-        }
-
-        .input-field input {
-            background: none;
-            outline: none;
-            border: none;
-            line-height: 1;
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: rgb(53, 48, 48)
-        }
-
-        .input-field input:placeholder-shown {
-            color: aquamarine;
-            font-weight: 500
-        }
-
-        .btn {
-            width: 150px;
-            height: 49px;
-            outline: none;
-            border: none;
-            border-radius: 50px;
-            background-color: rgb(247, 66, 0);
-            color: aqua;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin: 10px 0;
-            transition: all 0.5s;
-
-        }
-
-        .btn:hover {
-            background-color: aquamarine;
-        }
-
-        .social-text {
-            padding: 0.8rem 0;
-        }
-
-        .social-media {
-            display: flex;
-            justify-content: center;
-        }
-
-        .social-icon {
-            height: 50px;
-            width: 46px;
-            border: 1px solid rgb(198, 19, 19);
-            margin: 0 0.45rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            color: rgb(235, 85, 5);
-            font-size: 1.5rem;
-            border-radius: 50%;
-            transition: all 0.5s;
-
-        }
-
-        .social-icon:hover {
-            color: rgb(44, 39, 196);
-            border-color: rgb(204, 59, 7);
-
-        }
-
-        .signin-signup {
-            position: absolute;
-            top: 50%;
-            left: 85%;
-            transform: translate(-50%, -50%);
-            display: grid;
-            grid-template-columns: 1fr;
-        }
-
-        form.sign-in-form {
-            z-index: 2;
-        }
-
-        form.sign-up-form {
-            z-index: 1;
-            /* opacity: 0; */
-        }
-
-        .panels-conatiner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        /* .panel{
-    display:flex;
-    flex-direction: column;
-    align-items: center;   
-    justify-content: center;
-    text-align:center;
-    z-index: 7;
-} */
-        /* .left-panel{
-    padding:3rem 17% 2rem 17%;
-
-}
-.panel.content{
-    color:hsl(0, 0%, 3%);
-
-}
-.panel h3{
-    font-weight: 600;
-    line-height: 1;
-    font-size: 1.5rem;
-}
-
-.panel p{
-    font-size:.95rem;
-    padding:.7rem 0;
-}
-.btn.transparent{
-    margin:0;
-    background: none;
-    border: 2px solid #fff;
-    width:130px;
-    height:41px;
-    font-weight:600;
-    font-size:0.8rem;
-}
-.right-panel.content,.right-panel.image{
-    transform:translateX(800px);
-} */
-    </style>
-</head>
-
-<body>
-
-    <div class="container">
-
-        <div class="forms-container">
-            {% for message in messages %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Message:</strong> {{message}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
+    </div>
+    <!-- First half ends -->
+    <!-- Second half starts -->
+    <div class="div2 gradient-custom-2">
+            <div class="content">
+                <h1>The complete Login and Registration Experience!</h1>
+                <p>Enhance how you register new customers and authenticate existing customers to your applications and services</p>
+                <p>We use Django in the backend, which comes with robust security and scalability features.</p>
+                <p>Click <a href="/about">here</a>, to know more!</p>
             </div>
-            {% endfor %}
-            <div class="signin-signup">
-                <form action="/signin" method="post" class="sign-in-form">
-                    {% csrf_token %}
-                    <h2 class="title">SIGN IN</h2>
-                    <div class="input-field">
-                        <i class="fas fa-user"></i>
-                        <!-- <label for="">Username</label> -->
-                        <input type="text" name="username" id="username" placeholder="Username" required><br><br>
-                    </div>
-                    <div class="input-field">
-                        <i class="fas fa-lock"></i>
+        </div>
+    <!-- Second half ends -->
+</div>
+<footer>
+        <div class="row">
+            <div class="col">
+                <div class="zoom">
+                     {% load static %}
+                     <img class="logo" src="{% static 'lotus.webp' %}" alt="Dlog.in logo">
+                </div>
+                <p>Where users are our highest priority.</p>
 
+            </div>
+            <div class="col">
+                <h3>Office <div class="underline"></div>
+                </h3>
+                <p>Bock 1</p>
+                <p>Chandigarh University</p>
+                <p>Chandigarh</p>
+                <p class="email-id">Lotus@gmail.com</p>
+            </div>
+            <div class="col">
+                <h3>Links <div class="underline"></div>
+                </h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+<!--                    <li><a href="">Terms and condition</a></li>-->
 
-                        <!-- <label for="">Password</label> -->
-                        <input type="password" name="password" id="password" placeholder="password " required><br><br>
-                    </div>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Social links <div class="underline"></div>
+                </h3>
+                <div class="social-icons">
+                    <i class="fa fa-facebook"></i>
+                    <i class="fa fa-twitter"></i>
+                    <i class="fa fa-whatsapp"></i>
+                    <i class="fa fa-instagram"></i>
 
-                    <input type="submit" class="btn solid" value="Login" />
-<!--                    <P class="social-text">sign in with social platform</P>-->
-<!--                    <div class="social-media">-->
-<!--                        <a href="#" class="social-icon">-->
-<!--                            <i class="fab fa-facebook-f">-->
-<!--                            </i>-->
-<!--                        </a>-->
-<!--                        <a href="#" class="social-icon">-->
-<!--                            <i class="fab fa-twitter">-->
-<!--                            </i>-->
-<!--                        </a>-->
-<!--                        <a href="#" class="social-icon">-->
-<!--                            <i class="fab fa-google">-->
-<!--                            </i>-->
-<!--                        </a>-->
-<!--                        <a href="#" class="social-icon">-->
-<!--                            <i class="fab fa-linkedin-in">-->
-<!--                            </i>-->
-<!--                        </a>-->
-
-<!--                    </div>-->
-                </form>
+                </div>
             </div>
 
-</body>
-
-</html>
+        </div>
+        <hr>
+        <p class="copyright">Copyright © 2022, All Right Reserved with LOTUS GROUP</p>
+    </footer>
+{% endblock %}

@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Authentication</title>
+{% extends 'basic.html' %}
+{% block title%}Authentication{% endblock%}
+
+{% block link %}
     {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
-    
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+{%endblock%}
+
+{% block body %}
 {% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
         <strong>Message:</strong> {{message}}
@@ -43,5 +42,4 @@
         <img src="{% static 'bubble.png' %}">
     </div>
     </div>
-</body>
-</html>
+{%endblock%}

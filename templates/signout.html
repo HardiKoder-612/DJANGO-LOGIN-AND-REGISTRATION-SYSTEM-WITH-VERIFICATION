@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign out</title>
-</head>
-<body>
+{% extends 'basic.html' %}
+{% block title%}Sign Out{% endblock%}
+
+{% block body %}
     {% for message in messages %}
     <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
         <strong>Message:</strong> {{message}}
@@ -13,5 +10,5 @@
     </div>
     {% endfor %}
 <h3>Sign Out</h3>
-</body>
-</html>
+
+{% endblock %}

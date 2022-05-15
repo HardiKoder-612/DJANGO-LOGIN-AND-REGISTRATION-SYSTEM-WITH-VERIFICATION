@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Signed In</title>
-</head>
-<body>
+{% extends 'basic.html' %}
+
+{% block title%}Signed In{% endblock%}
+
+{% block body %}
+
 {% if user.is_authenticated%}
         <button type="submit"><a href="/signout" style="color:rgb(177, 70, 31)">SignOut</a></button>
         <div class="content">
         <h3>Hello {{fname}}</h3>
+            <br>
+            <span>
+                {{image}}
+            </span>
+
         <h4>You've successfully logged in.</h4>
         <button type="submit"><a href="" style="color:rgb(29, 17, 66)">Just use it</a></button>
         </div>
-         {% else %}
+{% else %}
         <h1>ERROR 404 <br>Nothing Here</h1>
-         {% endif %}
-</body>
-</html>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'basic.html' %}
+
+{% block title %}
+Contact Us
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'contact.css' %}">
+{%endblock%}
+
+{% block body %}
+<section class="contact_us">
+        <div class="content">
+            <h1>Contact Us</h1>
+            <p>The purpose of our Login and Registration System is to provide the users an easier way to enter a
+                website using authorization. Only those users, who have an account with us, will be able to
+                access the site. New users can register themselves and avail the facility for the same. Its aim is to
+                enhance the existing manual system using Django. Since, its software-based access, there would
+                be a lesser chance of the data being corrupted and therefore it would be more secure and reliable.
+                It can also ease the burden of the record keeping person as now they can concentrate on their
+                other tasks rather than spending their time on record keeping, which will ultimately lead to better
+                resource utilization. The aim of our project is to automate the whole login and registration
+                process, without the need of any human interference using softwares. There would also be no
+                need to store the credentials anywhere, as it would be automatically stored, securely in the
+                backend.</p>
+        </div>
+            <div class="container">
+                <div class="info">
+                    <div class="box">
+                        <div class="icon">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Address</h2>
+                            <p>Block 1,Chandigarh University<br>Chandigarh<br>140413</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="icon">
+                            <i class="fa fa-phone-square" aria-hidden="true"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Phone</h2>
+                            <p>+91-7878542480</p>
+                            <p>+91-9996373492</p>
+                            <p>+91-8173853738</p>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </div>
+                        <div class="text">
+                            <h2>Email</h2>
+                            <p>Dlog.in@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contactForm">
+                    <form action="/contact" method="POST">
+                        {% csrf_token %}
+                        <h3>Enter about yourself and your query so that we can help you ASAP</h3>
+                        <div class="inputbox">
+                            <input type="text" name="name" required>
+                            <span>Full Name</span>
+                        </div>
+                        <div class="inputbox">
+                            <input type="email" name="email" required>
+                            <span>Email</span>
+                        </div>
+                        <div class="inputbox">
+                            <input type="text" name="number" required>
+                            <span>Phone Number</span>
+                        </div>
+                        <div class="inputbox">
+                           <textarea name="query" required></textarea>
+                            <span>type your messsage here...</span>
+                        </div>
+                        <div class="inputbox">
+                            <input type="submit" value="Send">
+
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

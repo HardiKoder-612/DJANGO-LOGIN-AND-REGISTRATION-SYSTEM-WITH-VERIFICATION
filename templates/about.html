@@ -1,0 +1,108 @@
+{% extends 'basic.html' %}
+
+{% block title %}
+About Us
+{% endblock %}
+
+{% block link %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'aboutus.css' %}">
+{%endblock%}
+
+{% block body %}
+<div class="text">
+        <h1>Who we are?</h1>
+        <h3>We, the LOTUS team, provide complete Login and Registration System Solutions.</h3>
+        <h3>Be it for NGOs, Multi-National Companies or Individual, we have solutions for EVERYONE!</h3>
+        <h1>Why choose us?</h1>
+        <h3>Looking for secure and reliable registration and login methods? </h3>
+        <h3>Want to easen up your burden?</h3>
+        <h3>You are in the right place!</h3>
+        <br>
+        <br>
+        <h3>Choose from a variety of different layouts, or even request a custom one!</h3>
+        <h3>Few of the samples are given below.</h3>
+    </div>
+    <div class="samples">
+        <div class="sampleBox" id="sample-1">
+            {% load static %}
+            <img src="{% static 'Sample1.png' %}" alt="">
+        </div>
+        <div class="sampleBox" id="sample-2">
+            {% load static %}
+            <img src="{% static 'Sample2.gif' %}" alt="">
+        </div>
+        <div class="sampleBox" id="sample-3">
+            {% load static %}
+            <img src="{% static 'Sample3.gif' %}" alt="">
+        </div>
+        <div class="sampleBox" id="sample-4">
+            {% load static %}
+            <img src="{% static 'Sample4.png' %}" alt="">
+        </div>
+        <div class="sampleBox" id="sample-5">
+            {% load static %}
+            <img src="{% static 'Sample5.png' %}" alt="">
+        </div>
+        <div class="sampleBox" id="sample-6">
+            {% load static %}
+            <img src="{% static 'Sample6.png' %}" alt="">
+        </div>
+    </div>
+    <div class="team">
+        <h1 id="glow">Meet the Lotus Team</h1>
+        <div class="members">
+            <div class="dev">
+                {% load static %}
+                <img src="{% static 'ParamPIC.jpeg' %}" alt="Param Sahai">
+                <h2>Param Sahai</h2>
+                <h3>Front-end Developer</h3>
+                <p>Talented and self motivated person.</p>
+                <p>Problem Solver</p>
+                <div class="connect">
+                                {% load static %}
+                    <a href="https://www.linkedin.com/in/paramsahai/"><img src="{% static 'Linkedin-logo.png' %}" alt="Linked-in"></a>
+                                {% load static %}
+                    <a href="mailto:sahai.param.2002@gmail.com"><img src="{% static 'email-logo.png' %}" alt="Email"></a>
+                                {% load static %}
+                    <a href="https://twitter.com/alphaparam"><img src="{% static 'twtr-logo.png' %}" alt="Twitter"></a>
+                </div>
+            </div>
+            <div class="dev">
+                            {% load static %}
+                <img src="{% static 'Hardik.jfif' %}" alt="Hardik Sharma">
+                <h2>Hardik Sharma</h2>
+                <h3>Back-end Developer</h3>
+                <p>Often known for his knowledge about the backend. </p>
+                <p>Epitome of Hard work!</p>
+                <div class="connect">
+                                {% load static %}
+                    <a href="https://www.linkedin.com/in/hardik-sharma-b20818143"><img src="{% static 'Linkedin-logo.png' %}" alt="Linked-in"></a>
+                                {% load static %}
+                    <a href="mailto:nikku.sharmaklk@gmail.com"><img src="{% static 'email-logo.png' %}" alt="Email"></a>
+                                {% load static %}
+                    <a href="https://www.twitter.com"><img src="{% static 'twtr-logo.png' %}" alt="Twitter"></a>
+                </div>
+            </div>
+            <div class="dev">
+                            {% load static %}
+                <img src="{% static 'Harsh.jpeg' %}" alt="Harsh Chittora">
+                <h2>Harsh Chittora</h2>
+                <h3>Front-end Developer</h3>
+                <p>Skilled. Knows what he is doing</p>
+                <p>Cheerful and Creative.</p>
+                <div class="connect">
+                                {% load static %}
+                    <a href="https://www.linkedin.com/in/harsh-chittora-13a6481ba/"><img src="{% static 'Linkedin-logo.png' %}" alt="Linked-in"></a>
+                                {% load static %}
+                    <a href="mailto:harshchittora2001@gmail.com"><img src="{% static 'email-logo.png' %}" alt="Email"></a>
+                                {% load static %}
+                    <a href="https://www.twitter.com"><img src="{% static 'twtr-logo.png' %}" alt="Twitter"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
