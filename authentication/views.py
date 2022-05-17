@@ -54,8 +54,7 @@ def signup(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         cpassword = request.POST.get('cpassword')
-        image = request.POST.get('image')
-        print(image)
+        
 
         if User.objects.filter(username=username):
             messages.error(request, "Username Already Exists!!! Please Try some Other Username")
